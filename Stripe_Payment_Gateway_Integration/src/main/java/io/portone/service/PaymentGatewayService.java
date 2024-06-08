@@ -1,6 +1,9 @@
 package io.portone.service;
 
 import java.io.IOException;
+import java.util.List;
+
+import com.stripe.model.PaymentIntent;
 
 import io.portone.exception.PortoneException;
 import io.portone.model.PaymentIntentRequest;
@@ -14,4 +17,6 @@ public interface PaymentGatewayService {
 	public String captureTheCreatedIntent(String paymentIntentId) throws PortoneException;
 	
 	public String createRefundForPaymentIntent(String paymentIntentId) throws PortoneException;
+	
+	public List<PaymentIntent> getAllTheIntent()throws PortoneException;
 }

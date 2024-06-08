@@ -2,15 +2,20 @@ package io.portone.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.stripe.model.PaymentIntent;
 
 import io.portone.exception.PortoneException;
 import io.portone.model.PaymentIntentRequest;
@@ -37,7 +42,12 @@ public class PaymentGatewayController {
 	}
 	
 	@PostMapping("/api/v1/create_refund/{id}")
-	public String createTheRefundByPaymentIntent(@PathVariable("id") String paymentIntentId) throws PortoneException {
+	public String createTheRefundByPaymentIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
 		return paymentGatewayService.createRefundForPaymentIntent(paymentIntentId);
+	}
+	
+	@GetMapping("/api/v1/get_intents")
+	public ResponseEntity<List<PaymentIntent>> getAllTheIntentsHandler()throws PortoneException{
+		return new ResponseEntity<>(paymentGatewayService.getAllTheIntent(), HttpStatus.OK);
 	}
 }

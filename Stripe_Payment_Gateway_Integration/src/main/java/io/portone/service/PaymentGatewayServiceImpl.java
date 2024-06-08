@@ -2,6 +2,8 @@ package io.portone.service;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Service;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.PaymentIntentCollection;
 import com.stripe.model.Refund;
 import com.stripe.param.PaymentIntentCreateParams;
+import com.stripe.param.PaymentIntentListParams;
 import com.stripe.param.PaymentIntentUpdateParams;
 import com.stripe.param.RefundCreateParams;
 
@@ -131,6 +135,40 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 		}
 		catch (StripeException stripeException) {
 			throw new PortoneException("Error creating refund: "+stripeException.getMessage());
+		}
+	}
+
+	@Override
+	public List<PaymentIntent> getAllTheIntent() throws PortoneException {
+		Stripe.apiKey = stripeApiKey;
+		
+		try {
+			List<PaymentIntent> allPaymentIntent = new ArrayList<>();
+			PaymentIntentCollection paymentIntents;
+			PaymentIntentListParams params = PaymentIntentListParams.builder().setLimit(100L).build();
+			
+			do {
+				paymentIntents = PaymentIntent.list(params);
+				allPaymentIntent.addAll(paymentIntents.getData());
+				
+				if(paymentIntents.getHasMore()) {
+					params = PaymentIntentListParams.builder().
+							setStartingAfter(
+									paymentIntents.
+									getData().
+									get(paymentIntents.
+											getData().
+											size()-1).
+									getId()).
+							build();
+				}
+			}
+			while(paymentIntents.getHasMore());
+			
+			return allPaymentIntent;
+		}
+		catch (StripeException stripeException) {
+			throw new PortoneException("Error retrieving payment intent: "+ stripeException.getMessage());
 		}
 	}
 
