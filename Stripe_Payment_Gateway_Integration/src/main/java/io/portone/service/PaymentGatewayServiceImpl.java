@@ -13,10 +13,12 @@ import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.model.PaymentIntentCollection;
+import com.stripe.model.PaymentMethod;
 import com.stripe.model.Refund;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentListParams;
 import com.stripe.param.PaymentIntentUpdateParams;
+import com.stripe.param.PaymentMethodCreateParams;
 import com.stripe.param.RefundCreateParams;
 
 import io.portone.exception.PortoneException;
@@ -31,6 +33,14 @@ import okhttp3.Response;
 public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 	@Value("${stripe.api.key}")
 	private String stripeApiKey;
+	@Value("${card.number}")
+	private String cardNumber;
+	@Value("${card.expiry.month}")
+	private Long cardExpiryMonth;
+	@Value("${card.expiry.year}")
+	private Long cardExpiryYear;
+	@Value("${card.cvv}")
+	private String cardCVV;
 
 //	@Override
 //	public String createIntentForPayment(Map<String, String> parameter) throws IOException {
@@ -58,16 +68,35 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 			PaymentIntentCreateParams params = PaymentIntentCreateParams.builder().
 					setAmount(Long.valueOf(paymentIntentRequest.getAmount())).
 					setCurrency(paymentIntentRequest.getCurrency()).
-					setAutomaticPaymentMethods( 
-							PaymentIntentCreateParams.AutomaticPaymentMethods.builder().
-							setEnabled(true).build()).
+					setCaptureMethod(PaymentIntentCreateParams.CaptureMethod.MANUAL).
+					setPaymentMethod("pm_card_visa").
 					build();
 			
 			PaymentIntent paymentIntent= PaymentIntent.create(params);
 			
-			return paymentIntent.toJson();
+			return confirmPayment(paymentIntent);
 		} catch (StripeException stripeException) {
 			throw new PortoneException("Error creating PaymentIntent "+stripeException.getMessage());
+		}
+	}
+	
+	@Override
+	public String confirmPayment(PaymentIntent paymentIntent) throws PortoneException {
+		try {
+			String testToken = "tok_visa";
+			
+			PaymentMethodCreateParams params = PaymentMethodCreateParams.builder().
+					setType(PaymentMethodCreateParams.Type.CARD).
+					setCard(PaymentMethodCreateParams.Token.builder().
+							setToken(testToken).
+							build()).
+					build();
+			PaymentMethod paymentMethod = PaymentMethod.create(params);
+			
+			return attachPaymentMethod(paymentIntent.getId(), paymentMethod.getId());
+		}
+		catch (StripeException stripeException) {
+			throw new PortoneException("Error creating payment method "+stripeException.getMessage());
 		}
 	}
 	
@@ -175,5 +204,4 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 			throw new PortoneException("Error retrieving payment intent: "+ stripeException.getMessage());
 		}
 	}
-
 }

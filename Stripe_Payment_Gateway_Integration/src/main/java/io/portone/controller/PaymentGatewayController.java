@@ -32,11 +32,6 @@ public class PaymentGatewayController {
 		return new ResponseEntity<> (paymentGatewayService.createIntentForPayment(paymentIntentRequest), HttpStatus.ACCEPTED);
 	}
 	
-	@PostMapping("/api/v1/attach_payment_method")
-	public ResponseEntity<String> attachPaymentMethodHandler(@RequestParam String paymentIntentId, @RequestParam String paymentMethodId) throws PortoneException {
-		return new ResponseEntity<> (paymentGatewayService.attachPaymentMethod(paymentIntentId, paymentMethodId), HttpStatus.ACCEPTED);
-	}
-	
 	@PostMapping("/api/v1/capture_intent/{id}")
 	public ResponseEntity<String> captureTheCreatedIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
 		return new ResponseEntity<> (paymentGatewayService.captureTheCreatedIntent(paymentIntentId), HttpStatus.ACCEPTED);
