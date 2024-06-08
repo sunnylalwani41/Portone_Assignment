@@ -13,7 +13,7 @@ The API's primary objective is to provide to the customer **with a seamless expe
 
 The API's Services consist the following points with HTTP Methods:
 |S.No. | End Point | HTTP Method |
-|:-----:|:-------:|:----------:|
+|:-----:|:-------|:----------:|
 | 1 | ```/api/v1/create_intent``` | POST |
 | 2 | ```/api/v1/attach_payment_metho``` | POST |
 | 3 | ```/api/v1/capture_intent/{id}``` | POST |
