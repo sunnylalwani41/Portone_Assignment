@@ -33,14 +33,6 @@ import okhttp3.Response;
 public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 	@Value("${stripe.api.key}")
 	private String stripeApiKey;
-	@Value("${card.number}")
-	private String cardNumber;
-	@Value("${card.expiry.month}")
-	private Long cardExpiryMonth;
-	@Value("${card.expiry.year}")
-	private Long cardExpiryYear;
-	@Value("${card.cvv}")
-	private String cardCVV;
 
 //	@Override
 //	public String createIntentForPayment(Map<String, String> parameter) throws IOException {
