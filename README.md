@@ -64,6 +64,7 @@ This assignment is for **portone.io**, This is an online accept the payment (pay
 - go to StripePaymentGatewayIntegrationApplication.java file inside io.portone folder/package
 - Before the run this project, ensure LOMBOK should be proper installed in the IDE.
 - run as Spring Boot
+- This application run on the port 4050
 
 ### Postman link of Stripe Payment Gateway Integration
 click here to see in the [Postman](https://www.postman.com/material-geologist-27820143/workspace/stripe-payment-gateway).
