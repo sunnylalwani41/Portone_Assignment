@@ -12,4 +12,6 @@ public interface PaymentGatewayService {
 	public String attachPaymentMethod(String paymentIntentId, String paymentMethodId) throws PortoneException;
 	
 	public String captureTheCreatedIntent(String paymentIntentId) throws PortoneException;
+	
+	public String createRefundForPaymentIntent(String paymentIntentId) throws PortoneException;
 }

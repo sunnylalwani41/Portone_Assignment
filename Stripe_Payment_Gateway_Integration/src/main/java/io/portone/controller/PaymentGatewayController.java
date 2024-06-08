@@ -36,5 +36,8 @@ public class PaymentGatewayController {
 		return paymentGatewayService.captureTheCreatedIntent(paymentIntentId);
 	}
 	
-	
+	@PostMapping("/api/v1/create_refund/{id}")
+	public String createTheRefundByPaymentIntent(@PathVariable("id") String paymentIntentId) throws PortoneException {
+		return paymentGatewayService.createRefundForPaymentIntent(paymentIntentId);
+	}
 }

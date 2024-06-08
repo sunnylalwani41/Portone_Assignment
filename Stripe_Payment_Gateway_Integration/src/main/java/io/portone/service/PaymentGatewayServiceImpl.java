@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.Refund;
 import com.stripe.param.PaymentIntentCreateParams;
 import com.stripe.param.PaymentIntentUpdateParams;
+import com.stripe.param.RefundCreateParams;
 
 import io.portone.exception.PortoneException;
 import io.portone.model.PaymentIntentRequest;
@@ -113,6 +115,22 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 		}
 		catch (StripeException stripeException) {
 			throw new PortoneException("Error attach payment method in PaymentIntent "+stripeException.getMessage());
+		}
+	}
+
+	@Override
+	public String createRefundForPaymentIntent(String paymentIntentId) throws PortoneException {
+		Stripe.apiKey = stripeApiKey;
+		try {
+			RefundCreateParams params = RefundCreateParams.builder().
+					setPaymentIntent(paymentIntentId).
+					build();
+			Refund refund = Refund.create(params);
+			
+			return refund.toJson();
+		}
+		catch (StripeException stripeException) {
+			throw new PortoneException("Error creating refund: "+stripeException.getMessage());
 		}
 	}
 
