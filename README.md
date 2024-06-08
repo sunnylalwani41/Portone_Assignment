@@ -57,13 +57,14 @@ This assignment is for **portone.io**, This is an online accept the payment (pay
 
 ## Installation And Run Project
 
-- copy this https://github.com/sunnylalwani41/Your_Door_Food_REST_API.git
+- copy this https://github.com/sunnylalwani41/Portone_Assignment.git
 - Select path where you want to store the project in your pc
 - open the corresponding file / folder with editor
 - open terminal of your editor
-- use  --> git clone (paste link) <-- 
+- use command --> git clone (paste link) <-- 
 - after project cloned to your folder
-- go to YourDoorFoodApplication.java file inside com.masai folder
+- go to StripePaymentGatewayIntegrationApplication.java file inside io.portone folder/package
+- Before the run this project, ensure LOMBOK should be proper installed in the IDE.
 - run as Spring Boot
 
 ### Postman link of Stripe Payment Gateway Integration
