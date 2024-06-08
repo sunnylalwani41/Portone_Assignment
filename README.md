@@ -26,15 +26,13 @@ The API's Services consist the following points with HTTP Methods:
 - SPRING
 - SPRINGBOOT
 - MAVEN
-- SWAGGER UI
 
 ## Dependencies
 
 - SPRING BOOT DEVTOOLS
 - SPRING WEB
 - LOMBOK
-- SWAGGER UI
-
+  
 ## Modules
 
 - Payment Intent Module
