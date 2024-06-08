@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stripe.model.PaymentIntent;
+import com.stripe.model.Refund;
 
 import io.portone.exception.PortoneException;
 import io.portone.model.PaymentIntentRequest;
@@ -27,23 +28,23 @@ public class PaymentGatewayController {
 	private PaymentGatewayService paymentGatewayService;
 	
 	@PostMapping("/api/v1/create_intent")
-	public String createIntentForPaymentHandler(@RequestBody PaymentIntentRequest paymentIntentRequest) throws PortoneException {
-		return paymentGatewayService.createIntentForPayment(paymentIntentRequest);
+	public ResponseEntity<PaymentIntent> createIntentForPaymentHandler(@RequestBody PaymentIntentRequest paymentIntentRequest) throws PortoneException {
+		return new ResponseEntity<> (paymentGatewayService.createIntentForPayment(paymentIntentRequest), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/api/v1/attach_payment_method")
-	public String attachPaymentMethodHandler(@RequestParam String paymentIntentId, @RequestParam String paymentMethodId) throws PortoneException {
-		return paymentGatewayService.attachPaymentMethod(paymentIntentId, paymentMethodId);
+	public ResponseEntity<PaymentIntent> attachPaymentMethodHandler(@RequestParam String paymentIntentId, @RequestParam String paymentMethodId) throws PortoneException {
+		return new ResponseEntity<> (paymentGatewayService.attachPaymentMethod(paymentIntentId, paymentMethodId), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/api/v1/capture_intent/{id}")
-	public String captureTheCreatedIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
-		return paymentGatewayService.captureTheCreatedIntent(paymentIntentId);
+	public ResponseEntity<PaymentIntent> captureTheCreatedIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
+		return new ResponseEntity<> (paymentGatewayService.captureTheCreatedIntent(paymentIntentId), HttpStatus.ACCEPTED);
 	}
 	
 	@PostMapping("/api/v1/create_refund/{id}")
-	public String createTheRefundByPaymentIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
-		return paymentGatewayService.createRefundForPaymentIntent(paymentIntentId);
+	public ResponseEntity<Refund> createTheRefundByPaymentIntentHandler(@PathVariable("id") String paymentIntentId) throws PortoneException {
+		return new ResponseEntity<> (paymentGatewayService.createRefundForPaymentIntent(paymentIntentId), HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/api/v1/get_intents")
