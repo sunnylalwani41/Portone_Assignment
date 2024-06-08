@@ -51,7 +51,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 //	}
 	
 	@Override
-	public PaymentIntent createIntentForPayment(PaymentIntentRequest paymentIntentRequest) throws PortoneException{
+	public String createIntentForPayment(PaymentIntentRequest paymentIntentRequest) throws PortoneException{
 		Stripe.apiKey = stripeApiKey;
 		
 		try {
@@ -62,8 +62,10 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 							PaymentIntentCreateParams.AutomaticPaymentMethods.builder().
 							setEnabled(true).build()).
 					build();
+			
 			PaymentIntent paymentIntent= PaymentIntent.create(params);
-			return paymentIntent;
+			
+			return paymentIntent.toJson();
 		} catch (StripeException stripeException) {
 			throw new PortoneException("Error creating PaymentIntent "+stripeException.getMessage());
 		}
@@ -86,7 +88,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 	}
 
 	@Override
-	public PaymentIntent captureTheCreatedIntent(String paymentIntentId) throws PortoneException{
+	public String captureTheCreatedIntent(String paymentIntentId) throws PortoneException{
 		Stripe.apiKey = stripeApiKey;
 		
 		try {
@@ -94,7 +96,8 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 
 			if ("requires_capture".equals(paymentIntent.getStatus())) {
                 PaymentIntent capturedPaymentIntent = paymentIntent.capture();
-                return capturedPaymentIntent;
+                
+                return capturedPaymentIntent.toJson();
             } else {
                 throw new PortoneException("PaymentIntent cannot be captured. Current status: " + paymentIntent.getStatus());
             }
@@ -104,7 +107,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 	}
 
 	@Override
-	public PaymentIntent attachPaymentMethod(String paymentIntentId, String paymentMethodId) throws PortoneException {
+	public String attachPaymentMethod(String paymentIntentId, String paymentMethodId) throws PortoneException {
 		Stripe.apiKey = stripeApiKey;
 		
 		try {
@@ -115,7 +118,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 			
 			updatedPaymentIntent = updatedPaymentIntent.confirm();
 			
-			return updatedPaymentIntent;
+			return updatedPaymentIntent.toJson();
 		}
 		catch (StripeException stripeException) {
 			throw new PortoneException("Error attach payment method in PaymentIntent "+stripeException.getMessage());
@@ -123,7 +126,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 	}
 
 	@Override
-	public Refund createRefundForPaymentIntent(String paymentIntentId) throws PortoneException {
+	public String createRefundForPaymentIntent(String paymentIntentId) throws PortoneException {
 		Stripe.apiKey = stripeApiKey;
 		
 		try {
@@ -132,7 +135,7 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 					build();
 			Refund refund = Refund.create(params);
 			
-			return refund;
+			return refund.toJson();
 		}
 		catch (StripeException stripeException) {
 			throw new PortoneException("Error creating refund: "+stripeException.getMessage());
