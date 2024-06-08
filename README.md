@@ -25,9 +25,7 @@ The API's Services consist the following points with HTTP Methods:
 - JAVA
 - SPRING
 - SPRINGBOOT
-- HIBERNATE
 - MAVEN
-- J.D.B.C
 - SWAGGER UI
 
 ## Dependencies
@@ -39,26 +37,17 @@ The API's Services consist the following points with HTTP Methods:
 
 ## Modules
 
-- Restaurant Module
-- Customer Module
-- Admin Module
-- Food Module
-- Cart Module 
-- Order Module
-- Bill Module
+- Payment Intent Module
+- Capture Module
+- Refund Module
 - Exception Handler Module
-
 
 ## System Structure
 
-The REST API allows a Customer to **Signup, Login** & **Browse** through the food, view product as well as Restaurant and add food to **Cart** wishlist, as well as for the Restaurant to **View** all the **Orders, Customers & food**.
-
-Restaurant can **Add, Update, View, Delete** **Food**  from the **Database**.
-
-Administrator can **View request Delete Account List** and **Delete the Account As Per Request**.
+The REST API allows a Customer to **Create Payment**, **Capture Payment** **Refund Payment** & **Get All Payment Information** through the **browser** with appropriate Http Methods.
 
 ## About
-This project is a team project of 4 members, This is an online ordering and delivery Rest API. We built this Rest API project Within 5 days and this is our project during **the Masai curriculum (Construct Week)** [Demo Video](https://drive.google.com/file/d/1URK-TPSboVi9UFAYG8AROuHEMNi-4vzr/view).
+This assignment is for **portone.io** of 4 members, This is an online ordering and delivery Rest API. We built this Rest API project Within 5 days and this is our project during **the Masai curriculum (Construct Week)** [Demo Video](https://drive.google.com/file/d/1URK-TPSboVi9UFAYG8AROuHEMNi-4vzr/view).
 
 ## Feature
 - Restaurant
