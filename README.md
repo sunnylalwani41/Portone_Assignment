@@ -76,3 +76,12 @@ click here to see in the [Postman](https://www.postman.com/material-geologist-27
 
 ### Swagger UI Page
 <img src="images/Swagger UI.PNG" alt="Swagger UI" />
+
+### Payment Intent Parameter
+<img src="images/Payment Intent Create.PNG" alt="Payment Intent Create" />
+
+### Response Body
+<img src="images/Successfull response.PNG" alt="Successfull response" />
+
+### Schemas
+<img src="images/Schemas.PNG" alt="Schemas" />
