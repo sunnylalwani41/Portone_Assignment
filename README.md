@@ -71,3 +71,8 @@ This assignment is for **portone.io**, This is an online accept the payment (pay
 
 ### Postman link of Stripe Payment Gateway Integration
 click here to see in the [Postman](https://www.postman.com/material-geologist-27820143/workspace/stripe-payment-gateway).
+
+## Screenshot
+
+### Swagger UI Page
+<img src="images/Swagger UI.PNG" alt="Swagger UI" />
