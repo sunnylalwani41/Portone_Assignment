@@ -26,12 +26,14 @@ The API's Services consist the following points with HTTP Methods:
 - SPRING
 - SPRINGBOOT
 - MAVEN
+- SWAGGER UI
 
 ## Dependencies
 
 - SPRING BOOT DEVTOOLS
 - SPRING WEB
 - LOMBOK
+- SWAGGER UI
   
 ## Modules
 
@@ -65,6 +67,7 @@ This assignment is for **portone.io**, This is an online accept the payment (pay
 - Before the run this project, ensure LOMBOK should be proper installed in the IDE.
 - run as Spring Boot
 - This application run on the port 4050
+- After the run project [click here](http://localhost:4050/swagger-ui/index.html) to view the project in swagger-ui
 
 ### Postman link of Stripe Payment Gateway Integration
 click here to see in the [Postman](https://www.postman.com/material-geologist-27820143/workspace/stripe-payment-gateway).
