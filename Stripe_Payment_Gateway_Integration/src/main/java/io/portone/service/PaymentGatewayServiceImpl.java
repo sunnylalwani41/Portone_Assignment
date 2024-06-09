@@ -187,6 +187,9 @@ public class PaymentGatewayServiceImpl implements PaymentGatewayService{
 									getId()).
 							build();
 				}
+				else {
+					break;
+				}
 			}
 			while(paymentIntents.getHasMore());
 			
