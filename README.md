@@ -73,7 +73,7 @@ This assignment is for **portone.io**, This is an online accept the payment (pay
 click here to see in the [Postman](https://www.postman.com/material-geologist-27820143/workspace/stripe-payment-gateway).
 
 ### Deploy Link
-[Click here](http://34.0.8.234:4020/swagger-ui/index.html)
+[Click here](http://34.0.8.234:4020/swagger-ui/index.html) to see deploy in GCP (Google cloud platform).
 
 ## Screenshot
 
